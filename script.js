@@ -1,8 +1,5 @@
 let container = document.querySelector(".container");
-let grid = createGrid(4);
-grid.forEach(element => {
-    container.appendChild(element);
-});
+createGrid(4);
 
 let shaker = document.querySelector(".shaker");
 shaker.addEventListener("click", () => {
@@ -16,23 +13,22 @@ shaker.addEventListener("click", () => {
         size = 1;
     }
 
-    let newGrid = createGrid(size);
-    container.replaceChildren();
-    newGrid.forEach(element => {
-        container.appendChild(element);
-    });
+    createGrid(size);
 });
 
 function createGrid(size) {
-    let divs = new Array(size);
+    let dimensions = 840 / size;
+    let percent = 100 / size;
+    container.replaceChildren();
 
     for(i = 0; i < size*size; i++) {
         let div = document.createElement("div");
+        div.style.height = `${dimensions.toString()}px`;
+        div.style.width = `${percent.toString()}%`;
+
         div.addEventListener("mouseover", () => {
             div.style.backgroundColor = "black";
         });
-        divs[i] = div;
+        container.appendChild(div);
     }
-
-    return divs;
 }
