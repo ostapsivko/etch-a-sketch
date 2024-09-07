@@ -25,10 +25,31 @@ function createGrid(size) {
         let div = document.createElement("div");
         div.style.height = `${dimensions.toString()}px`;
         div.style.width = `${percent.toString()}%`;
+        div.style.opacity = "0.1";
 
         div.addEventListener("mouseover", () => {
-            div.style.backgroundColor = "black";
+            div.style.backgroundColor = generateRandomColor();
+            
+            let opacity = Number(div.style.opacity);
+            
+            if(opacity < 1) {
+                opacity += 0.1;
+            }
+
+            div.style.opacity = `${opacity.toFixed(2)}`;
         });
         container.appendChild(div);
     }
+}
+
+function generateRandomColor() {
+    let r = randomBetween(0, 256);
+    let g = randomBetween(0, 256);
+    let b = randomBetween(0, 256);
+
+    return `rgb(${r} ${g} ${b})`;
+}
+
+function randomBetween(min, max) {
+    return min + Math.floor(Math.random() * (max - min + 1));
 }
